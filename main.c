@@ -99,12 +99,12 @@ void One_paze(int Grid[10][10],struct Location P,struct Location H) {
   ///walk는 랜덤워크 수 0,1,2,3 중 하나를 담을 변수이고, time은 턴을 나타내는 시간 변수
   int walk;
   int time=0;
-  int paze;
+  int paze=0;
   key_main=1;
   ///M은 술 취한 사람
   struct Location M = {P.x,P.y};
   ///paze변수에 펍의 x좌표로 1사분면인지, 4사분면인지 구분
-  if (P.x<5) {
+  if (P.x < 5) {
     paze=1;
   }else {
     paze=4;
@@ -118,29 +118,29 @@ void One_paze(int Grid[10][10],struct Location P,struct Location H) {
     clearScreen();
     // 출력부분
     setlocale(LC_ALL,"");
-     for (int i=0;i<10;i++) {
-       for (int j=0;j<10;j++) {
-         ///1. 벽일 때
-         ///2. 펍과 주인공이 겹칠 때 -> 주인공 출력
-         ///3. 펍만 -> 펍 출력
-         ///4. 주인공만 -> 주인공 출력
-         ///5. 집 -> 집
-         if (Grid[i][j]==1) {
-           printf("%*s",2,"█︎");
-         }else if (i==P.y&&j==P.x && i==M.y && j==M.x) {
-           printf("%2s", "M");
-         }else if (i==M.y && j==M.x) {
-           printf("%2s", "M");
-         }else if (i==P.y && j==P.x) {
-           printf("%2s", "P");
-         }else if (i==H.y && j==H.x) {
-           printf("%2s", "H");
-         }else {
-           printf("%2s", " ");
-         }
-       }
-       printf("|\n");
-     }
+    for (int i=0;i<10;i++) {
+      for (int j=0;j<10;j++) {
+        ///1. 벽일 때
+        ///2. 펍과 주인공이 겹칠 때 -> 주인공 출력
+        ///3. 펍만 -> 펍 출력
+        ///4. 주인공만 -> 주인공 출력
+        ///5. 집 -> 집
+        if (Grid[i][j]==1) {
+          printf("%*s",2,"█︎");
+        }else if (i==P.y&&j==P.x && i==M.y && j==M.x) {
+          printf("%2s", "M");
+        }else if (i==M.y && j==M.x) {
+          printf("%2s", "M");
+        }else if (i==P.y && j==P.x) {
+          printf("%2s", "P");
+        }else if (i==H.y && j==H.x) {
+          printf("%2s", "H");
+        }else {
+          printf("%2s", " ");
+        }
+      }
+      printf("|\n");
+    }
 
     printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
     printf("%d턴\n",time);
@@ -169,36 +169,40 @@ void One_paze(int Grid[10][10],struct Location P,struct Location H) {
         }
       break;
     }
-
-///다음 페이즈로 넘어가기 위한 조건을 만족했는지 확인
+    ///다음 페이즈로 넘어가기 위한 조건을 만족했는지 확인
     if (paze == 1) {//1사분면에서 x가 먼저 5이면 2사분면 y가 5이면 3사분면
       if (M.x==5) {
         key_main=2;
       } else if (M.y==5) {
         key_main=3;
       }
-    }if (paze == 4) {
-      //페이즈 4일 때 x가 5미만이면 3사분면, y가 5미만이면 2사분면
-      if (M.y==4) {
+    }
+    if (paze == 4) {//페이즈 4일 때 x가 5미만이면 3사분면, y가 5미만이면 2사분면
+      if(M.y==4) {
         key_main=2;
-      } else if (M.x==4) {
+      }else if (M.x==4) {
         key_main=3;
       }
     }
   }
-  printf("%d",key_main);
+
   //key_main이 2이면 2페이즈로, 3이면 3페이즈로
+
   if (key_main==2) {
     Two_paze(Grid,P,H,M);
-  }else if (key_main==3) {
+  }else if (key_main == 3) {
     Three_paze(Grid,P,H,M);
   }
 }
 
-void Two_paze(int Grid[10][10],struct Location P,struct Location H,struct Location M) {
-  printf("2");
+void Two_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M) {
+  int now=2;
+  clearScreen();
+  printf("123");
 }
 
-void Three_paze(int Grid[10][10],struct Location P,struct Location H,struct Location M) {
-  printf("3");
+void Three_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M) {
+  int now=3;
+  clearScreen();
+  printf("몰라");
 }
