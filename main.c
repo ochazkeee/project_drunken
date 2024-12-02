@@ -198,6 +198,7 @@ void One_paze(int Grid[10][10],struct Location P,struct Location H) {
 void Two_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M,int time) {
   int cnt=0;
   int x,y;
+  int key_make=1;
 
   srand(time(NULL));
 
@@ -208,32 +209,51 @@ void Two_paze (int Grid[10][10],struct Location P,struct Location H,struct Locat
     cnt++;
     ///임상 생성
     if (cnt==10) {
-
+      //임상의 x좌표 y좌표 랜덤으로 생성
+      while (key_make!=0) {
+        //2사분면 x는 5에서 9까지 y는 0에서 4까지
+        x=rand()%5+5;
+        y=rand()%5;
+        if (Grid[y][x]==0) {
+          key_make=0;
+        }
+      }
+      struct Location I = {x,y};
     }
+    ///자격 생성
+    if (cnt==20) {
+      //자경의 x좌표 y좌표 랜덤으로 생성
+      while (key_make!=0) {
+        x=rand()%5+5;
+        y=rand()%5;
+        if (Grid[y][x]==0) {
+          key_make=0;
+        }
+      }
+      struct Location J = {x,y};
+    }
+
     clearScreen();
     ///출력 부분
     ///
     setlocale(LC_ALL,"");
+    //i는 y j는 x
     for (int i=0;i<10;i++) {
       for (int j=0;j<10;j++) {
         ///1. 벽일 때
-        ///2. 임상과 주인공이 겹칠 때 -> 주인공 출력
-        ///3. 임상만 -> 임상 출력 I
-        ///4. 주인공만 -> 주인공 출력
-        ///5. 자경과 주인공이 겹칠 떄 -> 주인공 출력
+        ///2. 자경, 임상, 주인공 겹칠 떄 -> 주인공 출력
+        ///3. 자경과 주인공이 겹칠 떄 -> 주인공 출력
+        ///4. 자경, 임상 겹칠 때 -> 임상 출력
+        ///5. 임상과 주인공이 겹칠 때 -> 주인공 출력
         ///6. 자경만 -> 자경 출력 j
-        ///7. 자경, 임상, 주인공 겹칠 떄 -> 주인공 출력
-        ///8. 자경, 임상 겹칠 때 -> 임상 출력
+        ///7. 임상만 -> 임상 출력 I
+        ///8. 주인공만 -> 주인공 출력
+        ///9. 펍이 있다면 -> 펍
+        ///10. 집이 있다면 -> 집
         if (Grid[i][j]==1) {
           printf("%*s",2,"█︎");
-        }else if (i==P.y&&j==P.x && i==M.y && j==M.x) {
-          printf("%2s", "M");
-        }else if (i==M.y && j==M.x) {
-          printf("%2s", "M");
-        }else if (i==P.y && j==P.x) {
-          printf("%2s", "P");
-        }else if (i==H.y && j==H.x) {
-          printf("%2s", "H");
+        }else if (i==) {
+
         }else {
           printf("%2s", " ");
         }
