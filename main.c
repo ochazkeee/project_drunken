@@ -19,8 +19,8 @@ void clearScreen();
 void make_background();
 void make_location(int Grid[10][10]);
 void One_paze(int Grid[10][10],struct Location P,struct Location H);
-void Two_paze(int Grid[10][10],struct Location P,struct Location H,struct Location M);
-void Three_paze(int Grid[10][10],struct Location P,struct Location H,struct Location M);
+void Two_paze(int Grid[10][10],struct Location P,struct Location H,struct Location M,int time);
+void Three_paze(int Grid[10][10],struct Location P,struct Location H,struct Location M,int time);
 
 int main(){
   make_background();
@@ -189,19 +189,68 @@ void One_paze(int Grid[10][10],struct Location P,struct Location H) {
   //key_main이 2이면 2페이즈로, 3이면 3페이즈로
 
   if (key_main==2) {
-    Two_paze(Grid,P,H,M);
+    Two_paze(Grid,P,H,M,time);
   }else if (key_main == 3) {
-    Three_paze(Grid,P,H,M);
+    Three_paze(Grid,P,H,M,time);
   }
 }
 
-void Two_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M) {
-  int now=2;
-  clearScreen();
-  printf("123");
+void Two_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M,int time) {
+  int cnt=0;
+  int x,y;
+
+  srand(time(NULL));
+
+  while (key_main==2) {
+    time++;
+    usleep(300000);
+    ///임상은 cnt가 10일 떄, 자경은 cnt가 20일 떄
+    cnt++;
+    ///임상 생성
+    if (cnt==10) {
+
+    }
+    clearScreen();
+    ///출력 부분
+    ///
+    setlocale(LC_ALL,"");
+    for (int i=0;i<10;i++) {
+      for (int j=0;j<10;j++) {
+        ///1. 벽일 때
+        ///2. 임상과 주인공이 겹칠 때 -> 주인공 출력
+        ///3. 임상만 -> 임상 출력 I
+        ///4. 주인공만 -> 주인공 출력
+        ///5. 자경과 주인공이 겹칠 떄 -> 주인공 출력
+        ///6. 자경만 -> 자경 출력 j
+        ///7. 자경, 임상, 주인공 겹칠 떄 -> 주인공 출력
+        ///8. 자경, 임상 겹칠 때 -> 임상 출력
+        if (Grid[i][j]==1) {
+          printf("%*s",2,"█︎");
+        }else if (i==P.y&&j==P.x && i==M.y && j==M.x) {
+          printf("%2s", "M");
+        }else if (i==M.y && j==M.x) {
+          printf("%2s", "M");
+        }else if (i==P.y && j==P.x) {
+          printf("%2s", "P");
+        }else if (i==H.y && j==H.x) {
+          printf("%2s", "H");
+        }else {
+          printf("%2s", " ");
+        }
+      }
+      printf("|\n");
+    }
+
+    printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+    printf("%d턴\n",time);
+
+  }
+
+
+
 }
 
-void Three_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M) {
+void Three_paze (int Grid[10][10],struct Location P,struct Location H,struct Location M,int time) {
   int now=3;
   clearScreen();
   printf("몰라");
